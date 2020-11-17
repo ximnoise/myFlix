@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff5fb;
+}
+
+header {
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: start;
+}
+
+table, th, td {
+  border: 1px solid black;
+  padding: 5px 5px;
+}
+
+thead {
+  background-color: #fbedff;
+}
+
+caption {
+  font-size: 18px;
+  font-weight: 700;
+}
