@@ -57,6 +57,38 @@ app.get('/movies', (req, res) => {
   res.json(topMovies);
 });
 
+app.get('/movies/:title', (req, res) => {
+  res.send('Successful GET request returning data on a single movie');
+});
+
+app.get('/movies/genres/:title', (req, res) => {
+  res.send('Successful GET request returning data on a genre');
+});
+
+app.get('/movies/directors/:name', (req, res) => {
+  res.send('Successful GET request returning data on a single director');
+});
+
+app.post('/users', (req, res) => {
+  res.send('Successful POST request registering new user');
+})
+
+app.put('/users/:username', (req, res) => {
+  res.send('Successful PUT request updating information');
+});
+
+app.post('/users/:username/movies/:movieId', (req, res) => {
+  res.send('Successful POST request adding movie with ID to favorite movie list');
+});
+
+app.delete('/users/:username/movies/:movieId', (req, res) => {
+  res.send('Successful DELETE request removing movie with ID from favorite movie list');
+});
+
+app.delete('/users/:username', (req, res) => {
+  res.send('Successful DELETE request removing user from database');
+});
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something broke!');

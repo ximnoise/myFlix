@@ -25,7 +25,7 @@
           <th>HTTP Method</th>
           <th>Request body</th>
           <th>Response format</th>
-          <th>Description</th>
+          <th>Response body</th>
         </tr>
       </thead>
       <tbody>
@@ -45,42 +45,98 @@
           <td>JSON</td>
           <td>
             Holding data about a single movie, containing <br>
-            an description, genre, image URL and id.
+            an description, genre, director, image URL and id. <br>
+            { <br>
+              "title": "Harry Potter", <br>
+              "genre": "Fantasy", <br>
+              "director": "Chris Columbus", <br>
+              "description": "Harry Potter is a film series based on the <br> 
+                eponymous novels by author J. K. Rowling.", <br>
+              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/b/b5/Harry-film-logo.png", <br>
+              "id": "b54537" <br>
+            }
           </td>
         </tr>
         <tr>
           <td>Get data about a genre by title.</td>
-          <td>/movies/[Title]/[Genre]</td>
+          <td>/movies/genres/[Title]</td>
           <td>GET</td>
           <td>None</td>
           <td>JSON</td>
-          <td>Holding data about a single genre containing the description.</td>
+          <td>
+            Holding data about a single genre containing the description. <br>
+            { <br>
+              "genre": "Fantasy", <br>
+              "description": "Fantasy stories can be about anything, anywhere, <br> 
+                anytime with essentially no limitations on what is possible." <br>
+            }
+          </td>
         </tr>
         <tr>
           <td>Get data about a director by name.</td>
-          <td>/movies/[Director]</td>
+          <td>/movies/directors/[Name]</td>
           <td>GET</td>
           <td>None</td>
           <td>JSON</td>
           <td>
             Holding data about a director containing <br> 
-            an biography, birth year and death year.</td>
+            an biography, birth year and death year. <br>
+            { <br>
+              "name": "Steven Spielberg", <br>
+              "biography": "Steven Allan Spielberg is an American film director, <br>
+                 producer, and screenwriter.", <br>
+              "birth year": "1946", <br>
+              "death year": "None" <br>
+            }
+          </td>
         </tr>
         <tr>
           <td>Add new User</td>
           <td>/users</td>
           <td>POST</td>
-          <td>JSON object holding data about the user to add.</td>
+          <td>
+            { <br>
+              "username": "maxmustermann", <br>
+              "password": "magic1234", <br>
+              "email": "maxmustermann@gmail.com", <br>
+              "birthday": "08/06/1996" <br>
+            }
+          </td>
           <td>JSON</td>
-          <td>Holding data about the user that was added.</td>
+          <td>
+            Holding data about the user that was added. <br>
+            { <br>
+              "username": "maxmustermann", <br>
+              "password": "magic1234", <br>
+              "email": "maxmustermann@gmail.com", <br>
+              "birthday": "08/06/1996", <br>
+              "id": "12345b" <br>
+            }
+          </td>
         </tr>
         <tr>
           <td>Update user info(username)</td>
           <td>/users/[Username]</td>
           <td>PUT</td>
-          <td>JSON object holding the new username.</td>
-          <td>Message</td>
-          <td>Indicating the username that was updated.</td>
+          <td>
+            { <br>
+              "username": "maxmustermann", <br>
+              "password": "magic1234", <br>
+              "email": "maxmustermann@gmail.com", <br>
+              "birthday": "08/06/1996" <br>
+            }
+          </td>
+          <td>JSON</td>
+          <td>
+            Indicating the username that was updated. <br>
+            { <br>
+              "username": "maxmustermann", <br>
+              "password": "magic1234", <br>
+              "email": "maxmustermann@gmail.com", <br>
+              "birthday": "08/06/1996", <br>
+              "id": "12345b" <br>
+            }
+          </td>
         </tr>
         <tr>
           <td>Add movies to users favorites list</td>
@@ -113,3 +169,17 @@
     </p>
   </body>
 </html>
+
+<!-- 
+  {
+    "Username": "maxmustermann",
+    "Password": "magic1234",
+    "Email": "maxmustermann@gmail.com",
+    "Birthday": "08/06/1996"
+  }
+
+  {
+    "Favorite Movies": 12345b
+  }
+-->
+
