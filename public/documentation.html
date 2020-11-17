@@ -3,18 +3,108 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>API docs</title>
+    <title>Documentation</title>
+    <link rel="stylesheet" type="text/css" href="../css/styles.css">
   </head>
   <body>
-    <h1>API Features</h1>
-    <ul>
-      <li>Return a list of ALL movies to the user</li>
-      <li>
-        Return data (description, genre, director, image URL, whether it’s featured or not) about
-        a single movie by title to the user
-      </li>
-      <li>Return data about a genre (description) by name/title (e.g., “Thriller”)</li>
-      <li>Return data about a director (bio, birth year, death year) by name</li>
-    </ul>
+    <h1>myFlix Movie API</h1>
+    <p>The web application will provide users with access to information about different
+      movies, directors, and genres.
+    </p>
+    <p>Users will be able to sign up, update their personal information, and
+      create a list of their favorite movies.
+    </p>
+    <table>
+      <caption>API Endpoints</caption>
+      <thead>
+        <tr>
+          <th>Business Logic</th>
+          <th>URL</th>
+          <th>HTTP Method</th>
+          <th>Request body</th>
+          <th>Response body</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Get a list of movies</td>
+          <td>/movies</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>JSON</td>
+          <td>Holding data about all the movies.</td>
+        </tr>
+        <tr>
+          <td>Get data about a single movie by title.</td>
+          <td>/movies/[Title]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>JSON</td>
+          <td>
+            Holding data about a single movie, containing <br>
+            an description, genre, image URL and id.
+          </td>
+        </tr>
+        <tr>
+          <td>Get data about a genre by title.</td>
+          <td>/movies/[Title]/[Genre]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>JSON</td>
+          <td>Holding data about a single genre containing the description.</td>
+        </tr>
+        <tr>
+          <td>Get data about a director by name.</td>
+          <td>/movies/[Director]</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>JSON</td>
+          <td>
+            Holding data about a director containing <br> 
+            an biography, birth year and death year.</td>
+        </tr>
+        <tr>
+          <td>Add new User</td>
+          <td>/users</td>
+          <td>POST</td>
+          <td>JSON object holding data about the user to add.</td>
+          <td>JSON</td>
+          <td>Holding data about the user that was added.</td>
+        </tr>
+        <tr>
+          <td>Update user info(username)</td>
+          <td>/users/[Username]</td>
+          <td>PUT</td>
+          <td>JSON object holding the new username.</td>
+          <td>Message</td>
+          <td>Indicating the username that was updated.</td>
+        </tr>
+        <tr>
+          <td>Add movies to users favorites list</td>
+          <td>/users/[Username]/movies/[MovieID]</td>
+          <td>POST</td>
+          <td>None</td>
+          <td>Message</td>
+          <td>Indicating that a movie has been added.</td>
+        </tr>
+        <tr>
+          <td>Remove movies from users favorites list</td>
+          <td>/users/[Username]/movies/[MovieID]</td>
+          <td>DELETE</td>
+          <td>None</td>
+          <td>Message</td>
+          <td>Indicating that a movie has been removed.</td>
+        </tr>
+        <tr>
+          <td>Deregister a existing user</td>
+          <td>/users/[Username]</td>
+          <td>DELETE</td>
+          <td>None</td>
+          <td>Message</td>
+          <td>Indicating that a user has been successfully deregistered.</td>
+        </tr>
+      </tbody>
+    </table>
   </body>
 </html>
