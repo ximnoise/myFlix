@@ -8,6 +8,8 @@ const app = express();
 const Movies = Models.Movie;
 const Users = Models.User;
 
+mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true});
+
 let topMovies = [
   {
     title: 'Star Wars',
