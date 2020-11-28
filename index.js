@@ -3,55 +3,12 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
-const app = express();
-
 const Movies = Models.Movie;
 const Users = Models.User;
 
 mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
-let topMovies = [
-  {
-    title: 'Star Wars',
-    director: 'George Lucas'
-  },
-  {
-    title: 'Lord of the Rings',
-    director: 'Peter Jackson'
-  },
-  {
-    title: 'The Hobbit',
-    director: 'Peter Jackson'
-  },
-  {
-    title: 'Ready Player One',
-    director: 'Steven Spielberg'
-  },
-  {
-    title: 'Harry Potter',
-    director: 'Chris Columbus, Alfonso Cuarón, Mike Newell, David Yates'
-  },
-  {
-    title: 'It',
-    director: 'Andy Muschietti'
-  },
-  {
-    title: 'Interstellar',
-    director: 'Christopher Nolan'
-  },
-  {
-    title: 'Fight Club',
-    director: 'David Fincher'
-  },
-  {
-    title: 'Deadpool 1 + 2',
-    director: 'Tim Miller, David Leitch'
-  },
-  {
-    title: 'Ghost in the Shell (1995)',
-    director: 'Mamoru Oshii'
-  }
-];
+const app = express();
 
 app.use(morgan('common'));
 
@@ -100,6 +57,17 @@ app.post('/users', (req, res) => {
   .catch((error) => {
     console.log(error);
     res.status(500).send('Error: ' + error);
+  });
+});
+
+app.get('/users', (req, res) => {
+  Users.find()
+  .then((users) => {
+    res.status(201).json(users);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
   });
 });
 
