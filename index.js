@@ -18,23 +18,55 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  res.send('Movie API, please visit the docs!');
+  res.send('Welcome to MyFlix!');
 });
 
+// Get all movies
 app.get('/movies', (req, res) => {
-  res.json(topMovies);
+  Movies.find()
+  .then((movies) => {
+    res.status(201).json(movies);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
-app.get('/movies/:title', (req, res) => {
-  res.send('Successful GET request returning data on a single movie');
+// Get movie by title
+app.get('/movies/:Title', (req, res) => {
+  Movies.findOne({ Title: req.params.Title })
+  .then((movie) => {
+    res.status(201).json(movie);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
-app.get('/movies/genres/:title', (req, res) => {
-  res.send('Successful GET request returning data on a genre');
+// Get data about a genre by title
+app.get('/movies/Genres/:Title', (req, res) => {
+  Movies.findOne({ Title: req.params.Title })
+  .then((movie) => {
+    res.status(201).json(`Genre: ${movie.Genre.Name}. Description: ${movie.Genre.Description}`);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
-app.get('/movies/directors/:name', (req, res) => {
-  res.send('Successful GET request returning data on a single director');
+// Get data about a director by name
+app.get('/movies/Directors/:Name', (req, res) => {
+  Movies.findOne({ "Director.Name": req.params.Name })
+  .then((movie) => {
+    res.status(201).json(`Name: ${movie.Director.Name}. Bio: ${movie.Director.Bio} Birth: ${movie.Director.Birth}. Death: ${movie.Director.Death}.`);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error:' + err);
+  })
 });
 
 // Add a user 
@@ -80,7 +112,7 @@ app.get('/users', (req, res) => {
 app.get('/users/:Username', (req, res) => {
   Users.findOne({ Username: req.params.Username })
   .then((user) => {
-    res.json(user);
+    res.status(201).json(user);
   })
   .catch((err) => {
     console.error(err);
@@ -88,7 +120,7 @@ app.get('/users/:Username', (req, res) => {
   });
 });
 
-// Update a user's info by username
+// Update user info by username
 app.put('/users/:Username', (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
@@ -104,15 +136,16 @@ app.put('/users/:Username', (req, res) => {
       console.error(err);
       res.status(500).send('Error: ' + err);
     } else {
-      res.json(updatedUser);
+      res.status(201).json(updatedUser);
     }
   });
 });
 
-// Add a movie to a user's list of favorites
+// Add movie to user favorite list
 app.post('/users/:Username/Movies/:MovieID', (req, res) => {
-  Users.findOneAndUpdate({ Username: req.params.Username }, {
-     $push: { FavoriteMovies: req.params.MovieID }
+  Users.findOneAndUpdate(
+    { Username: req.params.Username }, 
+    { $push: { FavoriteMovies: req.params.MovieID }
    },
   { new: true }, // This line makes sure that the updated document is returned
   (err, updatedUser) => {
@@ -120,13 +153,26 @@ app.post('/users/:Username/Movies/:MovieID', (req, res) => {
       console.error(err);
       res.status(500).send('Error: ' + err);
     } else {
-      res.json(updatedUser);
+      res.status(201).json(updatedUser);
     }
   });
 });
 
-app.delete('/users/:username/movies/:movieId', (req, res) => {
-  res.send('Successful DELETE request removing movie with ID from favorite movie list');
+// Delete movie from user favorite list
+app.delete('/users/:Username/Movies/:MovieID', (req, res) => {
+  Users.findOneAndUpdate(
+    { Username: req.params.Username }, 
+    { $pull: { FavoriteMovies: req.params.MovieID }
+  }, 
+  { new: true }, // This line makes sure that the updated document is returned
+  (err, updatedUser) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.status(201).json(updatedUser);
+    }
+  });
 });
 
 // Delete a user by username
