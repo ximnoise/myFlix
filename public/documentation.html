@@ -39,55 +39,66 @@
         </tr>
         <tr>
           <td>Get data about a single movie by title.</td>
-          <td>/movies/[Title]</td>
+          <td>/movies/:Title</td>
           <td>GET</td>
           <td>None</td>
           <td>JSON</td>
           <td>
             Holding data about a single movie, containing <br>
             an description, genre, director, image URL and id. <br>
+            <code>
             { <br>
-              "title": "Harry Potter", <br>
-              "genre": "Fantasy", <br>
-              "director": "Chris Columbus", <br>
-              "description": "Harry Potter is a film series based on the <br> 
-                eponymous novels by author J. K. Rowling.", <br>
-              "imageUrl": "https://upload.wikimedia.org/wikipedia/en/b/b5/Harry-film-logo.png", <br>
-              "id": "b54537" <br>
+              "Genre": { <br>
+                "Name": "Genre Name", <br>
+                "Description": "Genre Description" <br> },
+              <br>
+              <br>
+              "Director": { <br>
+                "Name": "Director Name", <br>
+                "Bio": "Director Bio", <br>
+                "Birth": "Directors Birthdate", <br>
+                "Death": "Directors Deathdate" <br> },
+              <br>
+              <br>
+              "_id": "5fbd0b91048fda9fcc1e5232", <br>
+              "Title": "Title of the movie", <br>
+              "Description": "Description of the movie", <br>
+              "ImagePath": "movie.png", <br>
+              "Featured": "Yes or No" <br>
             }
+            </code>
           </td>
         </tr>
         <tr>
           <td>Get data about a genre by title.</td>
-          <td>/movies/genres/[Title]</td>
+          <td>/movies/Genres/:Title</td>
           <td>GET</td>
           <td>None</td>
           <td>JSON</td>
           <td>
             Holding data about a single genre containing the description. <br>
+            <code>
             { <br>
-              "genre": "Fantasy", <br>
-              "description": "Fantasy stories can be about anything, anywhere, <br> 
-                anytime with essentially no limitations on what is possible." <br>
+              "Genre: "Genre Name". Description: "Genre Description". <br>
             }
+            </code>
           </td>
         </tr>
         <tr>
           <td>Get data about a director by name.</td>
-          <td>/movies/directors/[Name]</td>
+          <td>/movies/Directors/:Name</td>
           <td>GET</td>
           <td>None</td>
           <td>JSON</td>
           <td>
             Holding data about a director containing <br> 
             an biography, birth year and death year. <br>
+            <code>
             { <br>
-              "name": "Steven Spielberg", <br>
-              "biography": "Steven Allan Spielberg is an American film director, <br>
-                 producer, and screenwriter.", <br>
-              "birth year": "1946", <br>
-              "death year": "None" <br>
+              "Name: "Director Name". Bio: "Director Description". <br> 
+               Birth: "Directors Birthdate". Death: "Directors Deathdate". <br>
             }
+            </code>
           </td>
         </tr>
         <tr>
@@ -95,78 +106,119 @@
           <td>/users</td>
           <td>POST</td>
           <td>
+            <code>
             { <br>
-              "username": "maxmustermann", <br>
-              "password": "magic1234", <br>
-              "email": "maxmustermann@gmail.com", <br>
-              "birthday": "08/06/1996" <br>
+              "Username": "maxmustermann", <br>
+              "Password": "magic1234", <br>
+              "Email": "maxmustermann@gmail.com", <br>
+              "Birthday": "1996-08-06" <br>
             }
+            </code>
           </td>
           <td>JSON</td>
           <td>
             Holding data about the user that was added. <br>
+            <code>
             { <br>
-              "username": "maxmustermann", <br>
-              "password": "magic1234", <br>
-              "email": "maxmustermann@gmail.com", <br>
-              "birthday": "08/06/1996", <br>
-              "id": "12345b" <br>
+              "FavoriteMovies": [], <br>
+              "_id": "5fc24159da1b5d061e4b6a0d", <br>
+              "Username": "maxmustermann", <br>
+              "Password": "magic1234", <br>
+              "Email": "maxmustermann@gmail.com", <br>
+              "Birthday": "1996-08-06" <br>
             }
+            </code>
           </td>
         </tr>
         <tr>
-          <td>Update user info(username)</td>
-          <td>/users/[Username]</td>
+          <td>Update user info</td>
+          <td>/users/:Username</td>
           <td>PUT</td>
           <td>
+            <code>
             { <br>
-              "username": "maxmustermann", <br>
-              "password": "magic1234", <br>
-              "email": "maxmustermann@gmail.com", <br>
-              "birthday": "08/06/1996" <br>
-            }
+              "Username": "maxmustermann", <br>
+              "Password": "magic", <br>
+              "Email": "maxmustermann@gmail.com", <br>
+              "Birthday": "1996-08-06" <br>
+            } 
+            </code>
           </td>
           <td>JSON</td>
           <td>
             Indicating the username that was updated. <br>
+            <code>
             { <br>
-              "username": "maxmustermann", <br>
-              "password": "magic1234", <br>
-              "email": "maxmustermann@gmail.com", <br>
-              "birthday": "08/06/1996", <br>
-              "id": "12345b" <br>
-            }
+              "FavoriteMovies": [], <br>
+              "_id": "5fc24159da1b5d061e4b6a0d", <br>
+              "Username": "maxmustermann", <br>
+              "Password": "magic", <br>
+              "Email": "maxmustermann@gmail.com", <br>
+              "Birthday": "1996-08-06" <br>
+            } 
+            </code>
           </td>
         </tr>
         <tr>
           <td>Add movies to users favorites list</td>
-          <td>/users/[Username]/movies/[MovieID]</td>
+          <td>/users/:Username/Movies/:MovieID</td>
           <td>POST</td>
           <td>None</td>
-          <td>Message</td>
-          <td>Indicating that a movie has been added.</td>
+          <td>JSON</td>
+          <td>
+            Indicating that a movie has been added to user's favorite list. <br>
+            <code>
+            { <br>
+              "FavoriteMovies": [ <br>
+                "5fbd0b91048fda9fcc1e5232" <br>
+              ], <br>
+              "_id": "5fc24159da1b5d061e4b6a0d", <br>
+              "Username": "maxmustermann", <br>
+              "Password": "magic", <br>
+              "Email": "maxmustermann@gmail.com", <br>
+              "Birthday": "1996-08-06" <br>
+            } 
+            </code>
+          </td>
         </tr>
         <tr>
           <td>Remove movies from users favorites list</td>
-          <td>/users/[Username]/movies/[MovieID]</td>
+          <td>/users/:Username/Movies/:MovieID</td>
           <td>DELETE</td>
           <td>None</td>
-          <td>Message</td>
-          <td>Indicating that a movie has been removed.</td>
+          <td>JSON</td>
+          <td>
+            Indicating that a movie has been removed from user's favorite list. <br>
+            <code>
+            { <br>
+              "FavoriteMovies": [], <br>
+              "_id": "5fc24159da1b5d061e4b6a0d", <br>
+              "Username": "maxmustermann", <br>
+              "Password": "magic", <br>
+              "Email": "maxmustermann@gmail.com", <br>
+              "Birthday": "1996-08-06" <br>
+            } 
+            </code>
+          </td>
         </tr>
         <tr>
           <td>Deregister a existing user</td>
-          <td>/users/[Username]</td>
+          <td>/users/:Username</td>
           <td>DELETE</td>
           <td>None</td>
-          <td>Message</td>
-          <td>Indicating that a user has been successfully deregistered.</td>
+          <td>JSON</td>
+          <td>
+            Indicating that a user has been successfully deregistered. <br>
+            <code>
+            { <br>
+              "Username" was deleted. <br>
+            } 
+            </code>
+          </td>
         </tr>
       </tbody>
     </table>
-    <p><sup>1</sup>For spaces use %20 
-      <span>Example: /movies/harry%20potter</span>
-    </p>
+    <p><sup>1</sup>For spaces use %20 Example: <code>/movies/harry%20potter</code></p>
   </body>
 </html>
 

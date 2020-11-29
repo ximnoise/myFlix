@@ -26,6 +26,10 @@ thead {
   background-color: #fbedff;
 }
 
+code {
+  font-size: 14px;
+}
+
 caption {
   font-size: 18px;
   font-weight: 700;
