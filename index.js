@@ -3,6 +3,9 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 const bodyParser = require('body-parser');
+const passport = require('passport');
+
+require('./passport');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -17,12 +20,14 @@ app.use(express.static('public'));
 
 app.use(bodyParser.json());
 
+let auth = require('./auth')(app);
+
 app.get('/', (req, res) => {
   res.send('Welcome to MyFlix!');
 });
 
 // Get all movies
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false}), (req, res) => {
   Movies.find()
   .then((movies) => {
     res.status(201).json(movies);
