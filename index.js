@@ -5,6 +5,7 @@ const Models = require('./models.js');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const cors = require('cors');
+const { check, validationResult } = require('express-validator');
 
 require('./passport');
 
@@ -91,7 +92,18 @@ app.get('/movies/Directors/:Name', passport.authenticate('jwt', { session: false
 });
 
 // Add a user 
-app.post('/users', (req, res) => {
+app.post('/users', [
+  //Validation logic here for request
+  check('Username', "Username is required").isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
+  //check the validation object for errors
+  let errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
   let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username })
   .then((user) => {
@@ -143,11 +155,23 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
 });
 
 // Update user info by username
-app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }), [
+  //Validation logic here for request
+  check('Username', "Username is required").isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
+  //check the validation object for errors
+  let errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
     {
       Username: req.body.Username,
-      Password: req.body.Password,
+      Password: hashedPassword,
       Email: req.body.Email,
       Birthday: req.body.Birthday
     }
