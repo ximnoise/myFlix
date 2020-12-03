@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Models = require('./models.js');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const cors = require('cors');
 
 require('./passport');
 
@@ -13,6 +14,8 @@ const Users = Models.User;
 mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
 const app = express();
+
+app.use(cors());
 
 app.use(morgan('common'));
 
