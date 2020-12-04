@@ -15,7 +15,7 @@ const Users = Models.User;
 //mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+
 
 const app = express();
 
@@ -24,6 +24,10 @@ app.use(morgan('common'));
 app.use(express.static('public'));
 
 app.use(bodyParser.json());
+
+app.use(cors());
+
+/* let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -36,7 +40,7 @@ app.use(cors({
     }
     return callback(null, true);
   }
-}));
+})); */
 
 let auth = require('./auth')(app);
 
