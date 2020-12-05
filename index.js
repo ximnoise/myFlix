@@ -25,9 +25,7 @@ app.use(express.static('public'));
 
 app.use(bodyParser.json());
 
-app.use(cors());
-
-/* let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+let allowedOrigins = ['http://localhost:8080', 'https://primedome.herokuapp.com/'];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -40,7 +38,7 @@ app.use(cors({
     }
     return callback(null, true);
   }
-})); */
+}));
 
 let auth = require('./auth')(app);
 
@@ -113,7 +111,7 @@ app.post('/users', [
   Users.findOne({ Username: req.body.Username })
   .then((user) => {
     if (user) {
-      return res.status(400).send(req.body.Username + 'already exists');
+      return res.status(400).send(req.body.Username + ' already exists');
     } else {
       Users.create({
         Username: req.body.Username,
