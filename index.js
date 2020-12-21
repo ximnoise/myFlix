@@ -25,7 +25,7 @@ app.use(express.static('public'));
 
 app.use(bodyParser.json());
 
-let allowedOrigins = ['http://localhost:8080', 'https://primedome.herokuapp.com/'];
+let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234', 'https://primedome.herokuapp.com/'];
 
 app.use(cors({
   origin: (origin, callback) => {
